@@ -301,6 +301,7 @@ function App() {
   const [editingMovie, setEditingMovie] = useState(null);
   const [filter, setFilter] = useState({ platform: '', content_type: '' });
   const [loading, setLoading] = useState(false);
+  const [seeding, setSeeding] = useState(false);
 
   const fetchMovies = async () => {
     setLoading(true);
@@ -315,6 +316,19 @@ function App() {
       console.error('Error fetching movies:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const seedDatabase = async () => {
+    setSeeding(true);
+    try {
+      const response = await axios.post(`${API}/seed`);
+      console.log('Database seeded:', response.data);
+      await fetchMovies(); // Refresh the movie list
+    } catch (error) {
+      console.error('Error seeding database:', error);
+    } finally {
+      setSeeding(false);
     }
   };
 
