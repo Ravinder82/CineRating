@@ -416,12 +416,23 @@ function App() {
             </select>
           </div>
           
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
-          >
-            Add Movie/TV Show
-          </button>
+          <div className="flex gap-2">
+            {movies.length === 0 && !loading && (
+              <button
+                onClick={seedDatabase}
+                disabled={seeding}
+                className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium disabled:opacity-50"
+              >
+                {seeding ? 'Loading Popular Content...' : 'Load Popular Movies & TV Shows'}
+              </button>
+            )}
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+            >
+              Add Movie/TV Show
+            </button>
+          </div>
         </div>
 
         {/* Movie Grid */}
