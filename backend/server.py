@@ -90,10 +90,252 @@ def calculate_overall_rating(ratings: RatingCategories) -> float:
              ratings.action_stunts + ratings.emotional_impact)
     return round(total / 7, 1)
 
+# Seed Data - Popular Movies and TV Shows
+SEED_DATA = [
+    # Netflix Movies
+    {
+        "title": "The Irishman",
+        "content_type": "movie",
+        "year": 2019,
+        "genre": "Crime/Drama",
+        "streaming_platform": "Netflix",
+        "description": "A truck driver becomes a hitman and gets involved with the mob, spanning decades of American history.",
+        "ratings": {
+            "story": 8.5,
+            "acting": 9.2,
+            "direction": 9.0,
+            "music_sound": 7.8,
+            "cinematography": 8.7,
+            "action_stunts": 7.5,
+            "emotional_impact": 8.9
+        }
+    },
+    {
+        "title": "Roma",
+        "content_type": "movie",
+        "year": 2018,
+        "genre": "Drama",
+        "streaming_platform": "Netflix",
+        "description": "A year in the life of a middle-class family's maid in Mexico City in the early 1970s.",
+        "ratings": {
+            "story": 8.8,
+            "acting": 8.9,
+            "direction": 9.5,
+            "music_sound": 8.2,
+            "cinematography": 9.8,
+            "action_stunts": 6.0,
+            "emotional_impact": 9.3
+        }
+    },
+    {
+        "title": "Extraction",
+        "content_type": "movie",
+        "year": 2020,
+        "genre": "Action/Thriller",
+        "streaming_platform": "Netflix",
+        "description": "A black-market mercenary has nothing to lose when his skills are solicited to rescue the kidnapped son of an imprisoned international crime lord.",
+        "ratings": {
+            "story": 7.2,
+            "acting": 8.1,
+            "direction": 8.3,
+            "music_sound": 8.0,
+            "cinematography": 8.8,
+            "action_stunts": 9.5,
+            "emotional_impact": 7.8
+        }
+    },
+    # Netflix TV Series
+    {
+        "title": "Stranger Things",
+        "content_type": "tv_series",
+        "year": 2016,
+        "genre": "Sci-Fi/Horror",
+        "streaming_platform": "Netflix",
+        "description": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+        "ratings": {
+            "story": 9.1,
+            "acting": 8.7,
+            "direction": 8.9,
+            "music_sound": 9.3,
+            "cinematography": 8.6,
+            "action_stunts": 8.2,
+            "emotional_impact": 8.8
+        }
+    },
+    {
+        "title": "The Crown",
+        "content_type": "tv_series",
+        "year": 2016,
+        "genre": "Historical Drama",
+        "streaming_platform": "Netflix",
+        "description": "Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the twentieth century.",
+        "ratings": {
+            "story": 9.0,
+            "acting": 9.4,
+            "direction": 9.2,
+            "music_sound": 8.5,
+            "cinematography": 9.6,
+            "action_stunts": 6.5,
+            "emotional_impact": 8.7
+        }
+    },
+    {
+        "title": "Squid Game",
+        "content_type": "tv_series",
+        "year": 2021,
+        "genre": "Thriller/Drama",
+        "streaming_platform": "Netflix",
+        "description": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games for a tempting prize, but the stakes are deadly.",
+        "ratings": {
+            "story": 9.3,
+            "acting": 8.9,
+            "direction": 9.1,
+            "music_sound": 8.4,
+            "cinematography": 8.8,
+            "action_stunts": 8.6,
+            "emotional_impact": 9.5
+        }
+    },
+    # Amazon Prime Video Movies
+    {
+        "title": "The Tomorrow War",
+        "content_type": "movie",
+        "year": 2021,
+        "genre": "Action/Sci-Fi",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "A family man is drafted to fight in a future war where the fate of humanity relies on his ability to confront the past.",
+        "ratings": {
+            "story": 7.5,
+            "acting": 7.8,
+            "direction": 7.9,
+            "music_sound": 8.2,
+            "cinematography": 8.5,
+            "action_stunts": 9.0,
+            "emotional_impact": 7.6
+        }
+    },
+    {
+        "title": "Sound of Metal",
+        "content_type": "movie",
+        "year": 2019,
+        "genre": "Drama",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "A heavy-metal drummer's life is thrown into freefall when he begins to lose his hearing.",
+        "ratings": {
+            "story": 8.6,
+            "acting": 9.1,
+            "direction": 8.8,
+            "music_sound": 9.7,
+            "cinematography": 8.3,
+            "action_stunts": 6.0,
+            "emotional_impact": 9.2
+        }
+    },
+    {
+        "title": "The Big Sick",
+        "content_type": "movie",
+        "year": 2017,
+        "genre": "Comedy/Drama",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "Pakistan-born comedian Kumail Nanjiani and grad student Emily Gardner fall in love but struggle as their cultures clash.",
+        "ratings": {
+            "story": 8.7,
+            "acting": 8.9,
+            "direction": 8.4,
+            "music_sound": 7.8,
+            "cinematography": 7.9,
+            "action_stunts": 6.2,
+            "emotional_impact": 8.8
+        }
+    },
+    # Amazon Prime Video TV Series
+    {
+        "title": "The Boys",
+        "content_type": "tv_series",
+        "year": 2019,
+        "genre": "Superhero/Dark Comedy",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.",
+        "ratings": {
+            "story": 9.2,
+            "acting": 8.8,
+            "direction": 8.9,
+            "music_sound": 8.3,
+            "cinematography": 8.7,
+            "action_stunts": 9.4,
+            "emotional_impact": 8.6
+        }
+    },
+    {
+        "title": "The Marvelous Mrs. Maisel",
+        "content_type": "tv_series",
+        "year": 2017,
+        "genre": "Comedy/Drama",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "A housewife in 1958 decides to become a stand-up comic after her husband leaves her.",
+        "ratings": {
+            "story": 8.8,
+            "acting": 9.3,
+            "direction": 9.0,
+            "music_sound": 8.7,
+            "cinematography": 9.2,
+            "action_stunts": 6.0,
+            "emotional_impact": 8.5
+        }
+    },
+    {
+        "title": "Invincible",
+        "content_type": "tv_series",
+        "year": 2021,
+        "genre": "Animated/Superhero",
+        "streaming_platform": "Amazon Prime Video",
+        "description": "An adult animated series based on the Skybound/Image comic about a teenager whose father is the most powerful superhero on the planet.",
+        "ratings": {
+            "story": 9.0,
+            "acting": 8.9,
+            "direction": 9.1,
+            "music_sound": 8.4,
+            "cinematography": 8.8,
+            "action_stunts": 9.3,
+            "emotional_impact": 9.1
+        }
+    }
+]
+
+async def seed_database():
+    """Seed the database with popular movies and TV shows"""
+    try:
+        # Check if data already exists
+        existing_count = await db.movies.count_documents({})
+        if existing_count > 0:
+            return {"message": f"Database already contains {existing_count} movies"}
+        
+        # Add seed data
+        for item in SEED_DATA:
+            # Calculate overall rating
+            overall_rating = calculate_overall_rating(RatingCategories(**item['ratings']))
+            
+            # Create movie object
+            movie_dict = item.copy()
+            movie_dict['overall_rating'] = overall_rating
+            movie_obj = MovieTVShow(**movie_dict)
+            
+            # Insert into database
+            await db.movies.insert_one(movie_obj.dict())
+        
+        return {"message": f"Successfully seeded database with {len(SEED_DATA)} movies and TV shows"}
+    except Exception as e:
+        return {"error": f"Error seeding database: {str(e)}"}
+
 # Routes
 @api_router.get("/")
 async def root():
     return {"message": "Multi-Category Movie Rating API"}
+
+@api_router.post("/seed")
+async def seed_data():
+    """Seed the database with popular movies and TV shows"""
+    return await seed_database()
 
 @api_router.post("/movies", response_model=MovieTVShow)
 async def create_movie(movie_data: MovieTVShowCreate):
