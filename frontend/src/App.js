@@ -5,22 +5,38 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const RatingSlider = ({ label, value, onChange, description }) => (
-  <div className="mb-4">
-    <div className="flex justify-between items-center mb-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      <span className="text-sm font-bold text-blue-600">{value.toFixed(1)}</span>
+const RatingSlider = ({ label, value, onChange, description, icon }) => (
+  <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+    <div className="flex justify-between items-center mb-2">
+      <label className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
+        <span className="text-lg">{icon}</span>
+        <span>{label}</span>
+      </label>
+      <div className="flex items-center space-x-2">
+        <span className="text-lg font-bold text-indigo-600">{value.toFixed(1)}</span>
+        <span className="text-sm text-gray-500">/10</span>
+      </div>
     </div>
-    <input
-      type="range"
-      min="0"
-      max="10"
-      step="0.1"
-      value={value}
-      onChange={(e) => onChange(parseFloat(e.target.value))}
-      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-    />
-    <p className="text-xs text-gray-500 mt-1">{description}</p>
+    <div className="relative">
+      <input
+        type="range"
+        min="0"
+        max="10"
+        step="0.1"
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+        className="w-full h-3 bg-gradient-to-r from-gray-300 to-gray-300 rounded-lg appearance-none cursor-pointer slider-modern"
+        style={{
+          background: `linear-gradient(to right, #6366f1 0%, #6366f1 ${value * 10}%, #d1d5db ${value * 10}%, #d1d5db 100%)`
+        }}
+      />
+      <div className="flex justify-between text-xs text-gray-400 mt-1">
+        <span>0</span>
+        <span>5</span>
+        <span>10</span>
+      </div>
+    </div>
+    <p className="text-xs text-gray-500 mt-2 leading-relaxed">{description}</p>
   </div>
 );
 
