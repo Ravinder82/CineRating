@@ -135,6 +135,18 @@ backend:
         agent: "testing"
         comment: "Verified that all database models work correctly. The RatingCategories model properly validates all 7 rating categories (story, acting, direction, music_sound, cinematography, action_stunts, emotional_impact) with the correct range constraints (0-10). The MovieTVShow model correctly stores all data including content type, streaming platform, and auto-calculates the overall rating as the average of all category ratings. Data persistence works correctly with MongoDB."
 
+  - task: "Seed Data with Popular Content"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added seed data system with 12 popular movies and TV shows from Netflix and Amazon Prime Video. Includes /api/seed endpoint to populate database with curated content for immediate user engagement."
+
 frontend:
   - task: "Multi-Category Rating Interface"
     implemented: true
