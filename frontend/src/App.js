@@ -197,149 +197,187 @@ const AddMovieForm = ({ onClose, onSubmit, editingMovie = null }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">
-            {editingMovie ? 'Edit Movie/TV Show' : 'Add New Movie/TV Show'}
-          </h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
+          <div className="flex justify-between items-center">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              {editingMovie ? '✏️ Edit Movie/TV Show' : '✨ Add New Movie/TV Show'}
+            </h2>
+            <button 
+              onClick={onClose} 
+              className="text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-full"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              placeholder="Title"
-              value={formData.title}
-              onChange={(e) => setFormData({...formData, title: e.target.value})}
-              className="border rounded px-3 py-2 w-full"
-              required
-            />
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">🎬 Title</label>
+              <input
+                type="text"
+                placeholder="Enter movie/TV show title"
+                value={formData.title}
+                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">📺 Content Type</label>
+              <select
+                value={formData.content_type}
+                onChange={(e) => setFormData({...formData, content_type: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+              >
+                <option value="movie">Movie</option>
+                <option value="tv_series">TV Series</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">📅 Year</label>
+              <input
+                type="number"
+                placeholder="Release year"
+                value={formData.year}
+                onChange={(e) => setFormData({...formData, year: parseInt(e.target.value)})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                min="1900"
+                max="2030"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">🎭 Genre</label>
+              <input
+                type="text"
+                placeholder="e.g., Action, Comedy, Drama"
+                value={formData.genre}
+                onChange={(e) => setFormData({...formData, genre: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                required
+              />
+            </div>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">🎯 Streaming Platform</label>
             <select
-              value={formData.content_type}
-              onChange={(e) => setFormData({...formData, content_type: e.target.value})}
-              className="border rounded px-3 py-2 w-full"
+              value={formData.streaming_platform}
+              onChange={(e) => setFormData({...formData, streaming_platform: e.target.value})}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
             >
-              <option value="movie">Movie</option>
-              <option value="tv_series">TV Series</option>
+              <option value="Netflix">Netflix</option>
+              <option value="Amazon Prime Video">Amazon Prime Video</option>
+              <option value="Disney+ Hotstar">Disney+ Hotstar</option>
+              <option value="Hulu">Hulu</option>
+              <option value="HBO Max">HBO Max</option>
+              <option value="Apple TV+">Apple TV+</option>
+              <option value="Paramount+">Paramount+</option>
+              <option value="YouTube">YouTube</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              type="number"
-              placeholder="Year"
-              value={formData.year}
-              onChange={(e) => setFormData({...formData, year: parseInt(e.target.value)})}
-              className="border rounded px-3 py-2 w-full"
-              min="1900"
-              max="2030"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Genre"
-              value={formData.genre}
-              onChange={(e) => setFormData({...formData, genre: e.target.value})}
-              className="border rounded px-3 py-2 w-full"
-              required
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">📝 Description</label>
+            <textarea
+              placeholder="Brief description of the movie/TV show (optional)"
+              value={formData.description}
+              onChange={(e) => setFormData({...formData, description: e.target.value})}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors h-24 resize-none"
             />
           </div>
           
-          <select
-            value={formData.streaming_platform}
-            onChange={(e) => setFormData({...formData, streaming_platform: e.target.value})}
-            className="border rounded px-3 py-2 w-full"
-          >
-            <option value="Netflix">Netflix</option>
-            <option value="Amazon Prime Video">Amazon Prime Video</option>
-            <option value="Disney+ Hotstar">Disney+ Hotstar</option>
-            <option value="Hulu">Hulu</option>
-            <option value="HBO Max">HBO Max</option>
-            <option value="Apple TV+">Apple TV+</option>
-            <option value="Paramount+">Paramount+</option>
-            <option value="YouTube">YouTube</option>
-            <option value="Other">Other</option>
-          </select>
-          
-          <textarea
-            placeholder="Description (optional)"
-            value={formData.description}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
-            className="border rounded px-3 py-2 w-full h-20 resize-none"
-          />
-          
-          <div className="border-t pt-4">
-            <h3 className="text-lg font-semibold mb-4">Rate Each Category (0-10)</h3>
+          <div className="border-t pt-6">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              🌟 Rate Each Category (0-10)
+            </h3>
             
-            <RatingSlider
-              label="Story"
-              value={formData.ratings.story}
-              onChange={(value) => updateRating('story', value)}
-              description="Plot, narrative structure, and engagement level"
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <RatingSlider
+                label="Story"
+                icon="📚"
+                value={formData.ratings.story}
+                onChange={(value) => updateRating('story', value)}
+                description="Plot, narrative structure, and engagement level"
+              />
+              
+              <RatingSlider
+                label="Acting"
+                icon="🎭"
+                value={formData.ratings.acting}
+                onChange={(value) => updateRating('acting', value)}
+                description="Quality of performances by the cast"
+              />
+              
+              <RatingSlider
+                label="Direction"
+                icon="🎬"
+                value={formData.ratings.direction}
+                onChange={(value) => updateRating('direction', value)}
+                description="How well the director realizes the vision"
+              />
+              
+              <RatingSlider
+                label="Music & Sound"
+                icon="🎵"
+                value={formData.ratings.music_sound}
+                onChange={(value) => updateRating('music_sound', value)}
+                description="Score, soundtrack, and sound design quality"
+              />
+              
+              <RatingSlider
+                label="Cinematography"
+                icon="📸"
+                value={formData.ratings.cinematography}
+                onChange={(value) => updateRating('cinematography', value)}
+                description="Visual style, camera work, and aesthetics"
+              />
+              
+              <RatingSlider
+                label="Action & Stunts"
+                icon="💥"
+                value={formData.ratings.action_stunts}
+                onChange={(value) => updateRating('action_stunts', value)}
+                description="Quality of action sequences and stunts"
+              />
+            </div>
             
-            <RatingSlider
-              label="Acting"
-              value={formData.ratings.acting}
-              onChange={(value) => updateRating('acting', value)}
-              description="Quality of performances by the cast"
-            />
-            
-            <RatingSlider
-              label="Direction"
-              value={formData.ratings.direction}
-              onChange={(value) => updateRating('direction', value)}
-              description="How well the director realizes the vision"
-            />
-            
-            <RatingSlider
-              label="Music & Sound"
-              value={formData.ratings.music_sound}
-              onChange={(value) => updateRating('music_sound', value)}
-              description="Score, soundtrack, and sound design quality"
-            />
-            
-            <RatingSlider
-              label="Cinematography"
-              value={formData.ratings.cinematography}
-              onChange={(value) => updateRating('cinematography', value)}
-              description="Visual style, camera work, and aesthetics"
-            />
-            
-            <RatingSlider
-              label="Action & Stunts"
-              value={formData.ratings.action_stunts}
-              onChange={(value) => updateRating('action_stunts', value)}
-              description="Quality of action sequences and stunts"
-            />
-            
-            <RatingSlider
-              label="Emotional Impact"
-              value={formData.ratings.emotional_impact}
-              onChange={(value) => updateRating('emotional_impact', value)}
-              description="How much the content affects you emotionally"
-            />
+            <div className="mt-4">
+              <RatingSlider
+                label="Emotional Impact"
+                icon="💫"
+                value={formData.ratings.emotional_impact}
+                onChange={(value) => updateRating('emotional_impact', value)}
+                description="How much the content affects you emotionally"
+              />
+            </div>
           </div>
           
-          <div className="flex space-x-4 pt-4">
+          <div className="flex space-x-4 pt-6 border-t">
             <button
               type="submit"
-              className="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 px-6 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              {editingMovie ? 'Update' : 'Add'} Movie/TV Show
+              {editingMovie ? '✅ Update Movie/TV Show' : '🚀 Add Movie/TV Show'}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors font-medium"
+              className="flex-1 bg-gray-500 text-white py-4 px-6 rounded-lg hover:bg-gray-600 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              Cancel
+              ❌ Cancel
             </button>
           </div>
         </form>
