@@ -26,70 +26,107 @@ const RatingSlider = ({ label, value, onChange, description }) => (
 
 const MovieCard = ({ movie, onEdit, onDelete }) => {
   const categoryColors = {
-    story: 'bg-red-100 text-red-800',
-    acting: 'bg-blue-100 text-blue-800',
-    direction: 'bg-green-100 text-green-800',
-    music_sound: 'bg-purple-100 text-purple-800',
-    cinematography: 'bg-yellow-100 text-yellow-800',
-    action_stunts: 'bg-orange-100 text-orange-800',
-    emotional_impact: 'bg-pink-100 text-pink-800'
+    story: 'bg-gradient-to-r from-red-500 to-red-600 text-white',
+    acting: 'bg-gradient-to-r from-blue-500 to-blue-600 text-white',
+    direction: 'bg-gradient-to-r from-green-500 to-green-600 text-white',
+    music_sound: 'bg-gradient-to-r from-purple-500 to-purple-600 text-white',
+    cinematography: 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-white',
+    action_stunts: 'bg-gradient-to-r from-orange-500 to-orange-600 text-white',
+    emotional_impact: 'bg-gradient-to-r from-pink-500 to-pink-600 text-white'
+  };
+
+  const platformColors = {
+    'Netflix': 'bg-red-600 text-white',
+    'Amazon Prime Video': 'bg-blue-600 text-white',
+    'Disney+ Hotstar': 'bg-indigo-600 text-white',
+    'HBO Max': 'bg-purple-600 text-white',
+    'Apple TV+': 'bg-gray-800 text-white',
+    'Hulu': 'bg-green-600 text-white',
+    'Paramount+': 'bg-blue-500 text-white',
+    'YouTube': 'bg-red-500 text-white',
+    'Other': 'bg-gray-500 text-white'
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-      <div className="flex justify-between items-start mb-3">
-        <div>
-          <h3 className="text-xl font-bold text-gray-800">{movie.title}</h3>
-          <p className="text-sm text-gray-600">{movie.year} • {movie.genre}</p>
-          <p className="text-sm text-blue-600 font-medium">{movie.streaming_platform}</p>
+    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:scale-105">
+      <div className="relative">
+        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-32 relative">
+          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+          <div className="absolute top-4 right-4">
+            <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center space-x-1">
+              <span className="text-2xl font-bold text-yellow-500">⭐</span>
+              <span className="text-lg font-bold text-gray-800">{movie.overall_rating}</span>
+              <span className="text-sm text-gray-600">/10</span>
+            </div>
+          </div>
+          <div className="absolute bottom-4 left-4">
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${platformColors[movie.streaming_platform] || platformColors['Other']}`}>
+              {movie.streaming_platform}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold text-yellow-500">{movie.overall_rating}</div>
-          <div className="text-sm text-gray-500">/10</div>
+        
+        <div className="p-6">
+          <div className="mb-4">
+            <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
+              {movie.title}
+            </h3>
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <span className="bg-gray-100 px-2 py-1 rounded-full">{movie.year}</span>
+              <span>•</span>
+              <span className="bg-gray-100 px-2 py-1 rounded-full">{movie.genre}</span>
+              <span>•</span>
+              <span className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full capitalize">
+                {movie.content_type.replace('_', ' ')}
+              </span>
+            </div>
+          </div>
+          
+          {movie.description && (
+            <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+              {movie.description}
+            </p>
+          )}
+          
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.story} shadow-sm`}>
+              📚 Story: {movie.ratings.story}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.acting} shadow-sm`}>
+              🎭 Acting: {movie.ratings.acting}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.direction} shadow-sm`}>
+              🎬 Direction: {movie.ratings.direction}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.music_sound} shadow-sm`}>
+              🎵 Music: {movie.ratings.music_sound}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.cinematography} shadow-sm`}>
+              📸 Cinema: {movie.ratings.cinematography}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.action_stunts} shadow-sm`}>
+              💥 Action: {movie.ratings.action_stunts}
+            </div>
+            <div className={`px-3 py-2 rounded-lg text-xs font-medium ${categoryColors.emotional_impact} shadow-sm col-span-2`}>
+              💫 Emotional Impact: {movie.ratings.emotional_impact}
+            </div>
+          </div>
+          
+          <div className="flex space-x-3">
+            <button
+              onClick={() => onEdit(movie)}
+              className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              ✏️ Edit
+            </button>
+            <button
+              onClick={() => onDelete(movie.id)}
+              className="flex-1 bg-gradient-to-r from-red-500 to-pink-600 text-white py-3 px-4 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              🗑️ Delete
+            </button>
+          </div>
         </div>
-      </div>
-      
-      {movie.description && (
-        <p className="text-gray-700 text-sm mb-4 line-clamp-2">{movie.description}</p>
-      )}
-      
-      <div className="grid grid-cols-2 gap-2 mb-4">
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.story}`}>
-          Story: {movie.ratings.story}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.acting}`}>
-          Acting: {movie.ratings.acting}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.direction}`}>
-          Direction: {movie.ratings.direction}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.music_sound}`}>
-          Music: {movie.ratings.music_sound}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.cinematography}`}>
-          Cinematography: {movie.ratings.cinematography}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.action_stunts}`}>
-          Action: {movie.ratings.action_stunts}
-        </div>
-        <div className={`px-2 py-1 rounded text-xs ${categoryColors.emotional_impact}`}>
-          Emotional: {movie.ratings.emotional_impact}
-        </div>
-      </div>
-      
-      <div className="flex space-x-2">
-        <button
-          onClick={() => onEdit(movie)}
-          className="flex-1 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors text-sm"
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => onDelete(movie.id)}
-          className="flex-1 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors text-sm"
-        >
-          Delete
-        </button>
       </div>
     </div>
   );
