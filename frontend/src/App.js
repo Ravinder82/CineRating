@@ -459,81 +459,106 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Hero Section */}
       <div 
-        className="bg-cover bg-center h-96 flex items-center justify-center relative"
+        className="bg-cover bg-center h-96 flex items-center justify-center relative overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHRoZWF0ZXJ8ZW58MHx8fHwxNzUxOTM5MDA4fDA&ixlib=rb-4.1.0&q=85')`
+          backgroundImage: `linear-gradient(135deg, rgba(79,70,229,0.9) 0%, rgba(147,51,234,0.8) 50%, rgba(236,72,153,0.7) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxtb3ZpZSUyMHRoZWF0ZXJ8ZW58MHx8fHwxNzUxOTM5MDA4fDA&ixlib=rb-4.1.0&q=85')`
         }}
       >
-        <div className="text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl font-bold mb-4">CineRating</h1>
-          <p className="text-xl mb-6">Rate movies and TV shows across 7 detailed categories</p>
-          <p className="text-lg opacity-90">Story • Acting • Direction • Music & Sound • Cinematography • Action & Stunts • Emotional Impact</p>
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/50 to-purple-900/50"></div>
+        <div className="text-center text-white max-w-4xl mx-auto px-4 relative z-10">
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            🎬 CineRating
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-blue-100 font-medium">
+            Rate movies and TV shows across 7 detailed categories
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 text-sm md:text-base">
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">📚 Story</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">🎭 Acting</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">🎬 Direction</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">🎵 Music & Sound</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">📸 Cinematography</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">💥 Action & Stunts</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">💫 Emotional Impact</span>
+          </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-slate-50 to-transparent"></div>
       </div>
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Controls */}
-        <div className="flex flex-wrap gap-4 mb-8 items-center justify-between">
+        <div className="flex flex-wrap gap-4 mb-8 items-center justify-between bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
           <div className="flex flex-wrap gap-4">
-            <select
-              value={filter.platform}
-              onChange={(e) => setFilter({...filter, platform: e.target.value})}
-              className="border rounded px-3 py-2"
-            >
-              <option value="">All Platforms</option>
-              <option value="Netflix">Netflix</option>
-              <option value="Amazon Prime Video">Amazon Prime Video</option>
-              <option value="Disney+ Hotstar">Disney+ Hotstar</option>
-              <option value="Hulu">Hulu</option>
-              <option value="HBO Max">HBO Max</option>
-              <option value="Apple TV+">Apple TV+</option>
-              <option value="Paramount+">Paramount+</option>
-              <option value="YouTube">YouTube</option>
-              <option value="Other">Other</option>
-            </select>
+            <div className="relative">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">🎯 Platform</label>
+              <select
+                value={filter.platform}
+                onChange={(e) => setFilter({...filter, platform: e.target.value})}
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors bg-white"
+              >
+                <option value="">All Platforms</option>
+                <option value="Netflix">Netflix</option>
+                <option value="Amazon Prime Video">Amazon Prime Video</option>
+                <option value="Disney+ Hotstar">Disney+ Hotstar</option>
+                <option value="Hulu">Hulu</option>
+                <option value="HBO Max">HBO Max</option>
+                <option value="Apple TV+">Apple TV+</option>
+                <option value="Paramount+">Paramount+</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
             
-            <select
-              value={filter.content_type}
-              onChange={(e) => setFilter({...filter, content_type: e.target.value})}
-              className="border rounded px-3 py-2"
-            >
-              <option value="">All Types</option>
-              <option value="movie">Movies</option>
-              <option value="tv_series">TV Series</option>
-            </select>
+            <div className="relative">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">📺 Content Type</label>
+              <select
+                value={filter.content_type}
+                onChange={(e) => setFilter({...filter, content_type: e.target.value})}
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors bg-white"
+              >
+                <option value="">All Types</option>
+                <option value="movie">Movies</option>
+                <option value="tv_series">TV Series</option>
+              </select>
+            </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {movies.length === 0 && !loading && (
               <button
                 onClick={seedDatabase}
                 disabled={seeding}
-                className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium disabled:opacity-50"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                {seeding ? 'Loading Popular Content...' : 'Load Popular Movies & TV Shows'}
+                {seeding ? '🌱 Loading Popular Content...' : '🌟 Load Popular Movies & TV Shows'}
               </button>
             )}
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              Add Movie/TV Show
+              ➕ Add Movie/TV Show
             </button>
           </div>
         </div>
 
         {/* Movie Grid */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading movies...</p>
+          <div className="text-center py-20">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 border-t-indigo-600 mx-auto"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-2xl">🎬</span>
+              </div>
+            </div>
+            <p className="mt-6 text-gray-600 text-lg font-medium">Loading amazing content...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {movies.map(movie => (
               <MovieCard
                 key={movie.id}
@@ -546,19 +571,45 @@ function App() {
         )}
 
         {movies.length === 0 && !loading && (
-          <div className="text-center py-12">
-            <div className="max-w-md mx-auto">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Start Rating Popular Content!</h3>
-              <p className="text-gray-600 text-lg mb-6">
-                Load popular movies and TV shows from Netflix and Amazon Prime Video to start rating them across 7 categories.
+          <div className="text-center py-20">
+            <div className="max-w-lg mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/20">
+              <div className="text-6xl mb-4">🎭</div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-4">Start Rating Popular Content!</h3>
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                Load popular movies and TV shows from Netflix and Amazon Prime Video to start rating them across our comprehensive 7-category system.
               </p>
               <button
                 onClick={seedDatabase}
                 disabled={seeding}
-                className="bg-green-500 text-white px-8 py-4 rounded-lg hover:bg-green-600 transition-colors font-medium text-lg disabled:opacity-50"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold text-lg disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                {seeding ? 'Loading Popular Content...' : 'Load Popular Movies & TV Shows'}
+                {seeding ? '🌱 Loading Popular Content...' : '🌟 Load Popular Movies & TV Shows'}
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Stats Section */}
+        {movies.length > 0 && (
+          <div className="mt-12 bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">📊 Your Collection Stats</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-4">
+                <div className="text-2xl font-bold">{movies.length}</div>
+                <div className="text-sm opacity-90">Total Items</div>
+              </div>
+              <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-4">
+                <div className="text-2xl font-bold">{movies.filter(m => m.content_type === 'movie').length}</div>
+                <div className="text-sm opacity-90">Movies</div>
+              </div>
+              <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-4">
+                <div className="text-2xl font-bold">{movies.filter(m => m.content_type === 'tv_series').length}</div>
+                <div className="text-sm opacity-90">TV Series</div>
+              </div>
+              <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-lg p-4">
+                <div className="text-2xl font-bold">{movies.length > 0 ? (movies.reduce((acc, m) => acc + m.overall_rating, 0) / movies.length).toFixed(1) : '0'}</div>
+                <div className="text-sm opacity-90">Avg Rating</div>
+              </div>
             </div>
           </div>
         )}
