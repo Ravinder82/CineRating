@@ -456,7 +456,19 @@ function App() {
 
         {movies.length === 0 && !loading && (
           <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">No movies found. Add your first movie to get started!</p>
+            <div className="max-w-md mx-auto">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Start Rating Popular Content!</h3>
+              <p className="text-gray-600 text-lg mb-6">
+                Load popular movies and TV shows from Netflix and Amazon Prime Video to start rating them across 7 categories.
+              </p>
+              <button
+                onClick={seedDatabase}
+                disabled={seeding}
+                className="bg-green-500 text-white px-8 py-4 rounded-lg hover:bg-green-600 transition-colors font-medium text-lg disabled:opacity-50"
+              >
+                {seeding ? 'Loading Popular Content...' : 'Load Popular Movies & TV Shows'}
+              </button>
+            </div>
           </div>
         )}
       </div>
